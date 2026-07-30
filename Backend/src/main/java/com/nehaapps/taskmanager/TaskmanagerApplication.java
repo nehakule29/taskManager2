@@ -28,9 +28,9 @@ public class TaskmanagerApplication {
 	}
 	
 	 public void addTask() {
-    li.add(new Task(1, "write code", true));
-    li.add(new Task(2,"Learn Springboot",false));
-    li.add(new Task(3,"take walk",false)); 
+    li.add(new Task( "write code", true));
+    li.add(new Task("Learn Springboot",false));
+    li.add(new Task("take walk",false)); 
     }
     public static List<Task> li = new ArrayList<>();
     public TaskmanagerApplication() {
@@ -45,9 +45,9 @@ public class TaskmanagerApplication {
     return li; 
 }
    @GetMapping("/{id}")
-   public Task getTaskbyID(@PathVariable Integer id){
+   public Task getTaskbyID(@PathVariable String id){
     for (Task task : li) {
-        if(task.getId()==id){
+        if(task.getId().equals(id)){
             System.out.println(task);
             return task;
         }
@@ -61,9 +61,9 @@ public class TaskmanagerApplication {
    }
 
    @DeleteMapping("delete/{id}")
-   public ResponseEntity<?> deleteTaskById(@PathVariable int id){
+   public ResponseEntity<?> deleteTaskById(@PathVariable String id){
    for(int i=0 ;i< li.size() ; i++) {
-        if(li.get(i).getId()==id){
+        if(li.get(i).getId().equals(id)){
            li.remove(i);
            String message = "Task" + id + "removed";
            return new ResponseEntity<>(message,HttpStatus.OK);
@@ -73,9 +73,9 @@ public class TaskmanagerApplication {
 } 
 
   @PutMapping("update/{id}")
-  public ResponseEntity<?> updateTasks(@PathVariable int id, @RequestBody Task updatedTask) {
+  public ResponseEntity<?> updateTasks(@PathVariable String id, @RequestBody Task updatedTask) {
       for(int k=0 ; k<li.size(); k++){
-        if(li.get(k).getId()==id){
+        if(li.get(k).getId().equals(id)){
             li.get(k).setTitle(updatedTask.getTitle());
             li.get(k).setCompleted(updatedTask.isCompleted());
             return new ResponseEntity<>("Updated",HttpStatus.OK);
@@ -90,9 +90,8 @@ public class TaskmanagerApplication {
     public ResponseEntity<Task> createTask(@RequestBody Task request) {
         System.out.println(request);
         // Simulate processingm
-        int id = TaskmanagerApplication.li.size()+1;
-        Task newtask = new Task(id, request.getTitle(), request.isCompleted());
-        TaskmanagerApplication.li.add(newtask);
+        Task newtask = new Task( request.getTitle(), request.isCompleted());
+        
         
         return new ResponseEntity<>(newtask,HttpStatus.CREATED);
     }

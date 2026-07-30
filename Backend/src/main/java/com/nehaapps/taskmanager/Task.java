@@ -1,12 +1,15 @@
 package com.nehaapps.taskmanager;
 
+import org.springframework.data.annotation.Id;
+
 public class Task {
-     private int id;
-    public int getId() {
+    @Id
+    private String id;
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -29,8 +32,8 @@ public class Task {
     private String title;
     private boolean completed;
     
-    public Task(int id, String title, boolean completed) {
-        this.id = id;
+    
+    public Task(String title, boolean completed) {
         this.title = title;
         this.completed = completed;
     }
