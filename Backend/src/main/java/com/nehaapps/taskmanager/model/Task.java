@@ -1,7 +1,9 @@
-package com.nehaapps.taskmanager;
+package com.nehaapps.taskmanager.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "tasks")
 public class Task {
     @Id
     private String id;
@@ -33,7 +35,8 @@ public class Task {
     private boolean completed;
     
     
-    public Task(String title, boolean completed) {
+    public Task(String id,String title, boolean completed) {
+        this.id = id;
         this.title = title;
         this.completed = completed;
     }

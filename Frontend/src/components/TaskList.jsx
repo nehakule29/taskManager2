@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function TaskList({ tasks }) {
+  const [editable,iseditable]=useState(false);
     console.log(tasks)
   return (
     <>
@@ -9,9 +10,14 @@ function TaskList({ tasks }) {
         {tasks.map((task) => (
           <li key={task.id}>
             <h3>{task.title}</h3>
-            <p>Completed: {task.completed ? 'Yes' : 'No'}</p>
+            <input type='checkbox' checked={task.completed?true:false}></input>
+            <button id={task.id} value={editable}>Edit</button>
+            <EditTask task={task}/>
           </li>
+
         ))}
+
+
       </ul>
     </>
   )
