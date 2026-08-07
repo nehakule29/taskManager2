@@ -21,7 +21,7 @@ function App() {
 
   return (
     <>
-      <TaskList tasks={ tasks } />
+      <TaskList tasks={ tasks } setTasks= { setTasks } />
       <AddTask setTasks={setTasks} />
     </>
   )

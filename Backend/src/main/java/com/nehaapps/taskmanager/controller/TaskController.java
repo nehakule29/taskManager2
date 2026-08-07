@@ -60,11 +60,11 @@ public class TaskController {
     Task existingTask=optionalTask.get();
     existingTask.setTitle(updatedTask.getTitle());
     existingTask.setCompleted(updatedTask.isCompleted());
-    repository.save(existingTask);
-    return ResponseEntity.accepted().build();
-    
+    Task savedTask = repository.save(existingTask);
+     return ResponseEntity.ok(savedTask);
     
 }
+  
 
       // Using @RequestBody with validation
     @PostMapping("/create")
