@@ -14,6 +14,16 @@ function TaskList({tasks,setTasks}) {
     throw new Error("Update failed");
     }
 
+    const toggleCompleted = (e) => {
+      if(e.target.checked){
+        task.completed = true;
+        console.log("Task completed:", task.completed);
+      }else{
+        task.completed = false;
+        console.log("Task not completed:", task.completed);
+      }
+
+    }
     console.log(response);
     const data = await response.json();
     console.log("Updated task");
@@ -39,9 +49,17 @@ function TaskList({tasks,setTasks}) {
             ) : (
               <>
                  <h3>{task.title}</h3>
+                 <button onClick={async (e) => {
+                    const response = await fetch(`http://localhost:8080/api/v1/tasks/delete/${task.id}`, { method: 'DELETE' });
+                    if (!response.ok) {
+                      throw new Error("Delete failed");
+                    }
+                    setTasks((previousTasks) => previousTasks.filter((t) => t.id !== task.id));
+                  }}>Delete</button>
                  <button onClick={(e)=> {setEditingId(task.id);
                    setUpdatedtitle(task.title);
                   } }>Edit</button>
+
 
               </>
             )}
